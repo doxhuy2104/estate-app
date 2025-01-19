@@ -66,9 +66,11 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      // secure:true,
+      secure: true,
+      sameSite: 'none',
+      domain: 'estate-app-w2y3.onrender.com', // domain của server
       maxAge: age,
-    }).status(200).json(userInfo)
+    }).status(200).json(userInfo);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to login!" });

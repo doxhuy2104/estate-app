@@ -2,7 +2,9 @@ import { Server } from "socket.io";
 
 const io = new Server({
   cors: {
-    origin: "http://localhost:5173",
+    origin: ["https://estate-app-client.onrender.com", "https://estate-app-w2y3.onrender.com"],
+    methods: ["GET", "POST"],
+    credentials: true
   },
 });
 
@@ -29,7 +31,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", ({ receiverId, data }) => {
-    
+
     const receiver = getUser(receiverId);
     io.to(receiver.socketId).emit("getMessage", data);
   });
